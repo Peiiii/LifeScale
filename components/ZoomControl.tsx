@@ -10,29 +10,29 @@ const ZoomControl: React.FC = () => {
   const { zoomManager } = usePresenter();
 
   return (
-    <div className="glass px-10 py-6 rounded-full flex items-center gap-6 md:gap-12 shadow-2xl shadow-slate-200/30 transition-all duration-500 hover:scale-[1.02] hover:bg-white/60">
+    <div className="glass px-12 py-5 rounded-full flex items-center gap-8 md:gap-14 zen-shadow border border-white/50 transition-all duration-700 hover:scale-[1.01] hover:bg-white/50">
       {ZOOM_CONFIG.map((item) => {
         const isActive = currentZoom === item.level;
         return (
           <button
             key={item.level}
             onClick={() => zoomManager.changeZoom(item.level)}
-            className="relative group flex flex-col items-center py-1"
+            className="relative group flex flex-col items-center py-2"
           >
-            <span className={`text-[10px] md:text-xs tracking-[0.4em] font-semibold uppercase transition-all duration-500 ${
-              isActive ? 'text-sky-600 scale-110' : 'text-slate-300 group-hover:text-slate-500'
+            <span className={`text-[9px] md:text-[10px] tracking-[0.5em] font-medium uppercase transition-all duration-700 ease-out ${
+              isActive ? 'text-slate-800 scale-110' : 'text-slate-300 group-hover:text-slate-500'
             }`}>
               {item.label}
             </span>
-            {isActive && (
+            
+            {isActive ? (
               <motion.div
-                layoutId="active-dot"
-                className="absolute -bottom-3 w-2 h-2 bg-sky-500 rounded-full shadow-[0_0_12px_rgba(56,189,248,0.8)]"
-                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                layoutId="active-indicator"
+                className="absolute -bottom-3 w-6 h-[1.5px] bg-sky-400/60"
+                transition={{ type: "spring", stiffness: 200, damping: 25 }}
               />
-            )}
-            {!isActive && (
-              <div className="absolute -bottom-3 w-1 h-1 bg-slate-200 rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+            ) : (
+              <div className="absolute -bottom-3 w-1 h-1 bg-slate-100 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             )}
           </button>
         );
